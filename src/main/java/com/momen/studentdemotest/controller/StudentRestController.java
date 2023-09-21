@@ -44,6 +44,13 @@ public class StudentRestController {
         service.delete(id);
         return "Student Deleted!!";
     }
+    @GetMapping("/students/address/{address}")
+    public List<Student> findAddress(@PathVariable String address){
+        List<Student> students = service.findAllFromBanha(address);
+        if (students.isEmpty())
+            throw new RuntimeException("Couldn't find!!");
+        return students;
+    }
 }
 
 

@@ -3,7 +3,6 @@ package com.momen.studentdemotest.service;
 import com.momen.studentdemotest.entity.Student;
 import com.momen.studentdemotest.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,10 +25,8 @@ public class StudentServiceImpl implements StudentService {
     public Student findById(int id) {
         Optional<Student> result = repository.findById(id);
         Student student = null;
-        if (result.isPresent())
-            student = result.get();
-        else
-            throw new RuntimeException("couldn't find this student id - " + id);
+        if (result.isPresent()) student = result.get();
+        else throw new RuntimeException("couldn't find this student id - " + id);
 
         return student;
     }
@@ -42,5 +39,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void delete(int id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public List<Student> findAllFromBanha(String address) {
+        return repository.findStudentsByAddress(address);
     }
 }
